@@ -30,7 +30,7 @@
     	  <div class="input-group-prepend">
     		<span class="input-group-text" id="basic-addon3">Server URL https://</span>
     	  </div>
-    	  <input type="text" class="form-control" id="hosturl" aria-describedby="basic-addon3" value="140.113.179.8.xip.io">
+    	  <input type="text" class="form-control" id="hosturl" aria-describedby="basic-addon3" value="140.113.179.9.xip.io">
     	  <button class="btn btn-primary" type="button" onclick="submit()">Start</button><br>
     	</div>
   	</div>
@@ -90,7 +90,7 @@
           //$("#facePic").attr("src", objUrl);
       		$.ajax({
       			type: "GET",
-      			url: "http://140.113.179.8:3000/facedetection",//请在此处填写clientServer.js 运行的IP地址
+      			url: "http://140.113.179.9.xip.io/facedetection",//请在此处填写clientServer.js 运行的IP地址
       			data: { url: $("#hosturl").val(), name: num, fpsrate: fpsrate, },
       			dataType: "text",
       			success: function(R_data) {
