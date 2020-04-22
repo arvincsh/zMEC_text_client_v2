@@ -1,0 +1,118 @@
+<html>
+<head>
+  <link rel="stylesheet" href="../css/bootstrap.min.css" />
+  <script src="../js/jquery-3.4.1.min.js"></script>
+  <script src="http://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <!-- 引入 echarts.js -->
+  <script src="../js/echarts.min.js"></script>
+  <script src="../js/ajaxFileUpload.js"></script>
+</head>
+
+<body>
+
+  <div class="jumbotron">
+  	<div class="container container-lg">
+      <div class="row">
+        <div class="input-group-prepend">
+    		<span class="input-group-text">Please choose the fps rate first:</span>
+          <select id="fps">
+            <option value="1">1 fps</option>
+            <option value="3">3 fps</option>
+            <option value="5">5 fps</option>
+            <option value="10">10 fps</option>
+            <option value="24">24 fps</option>
+          </select>
+    	  </div>
+
+    </div>
+  	<div class="row">
+    	<div class="input-group mb-3">
+    	  <div class="input-group-prepend">
+    		<span class="input-group-text" id="basic-addon3">Server URL https://</span>
+    	  </div>
+    	  <input type="text" class="form-control" id="hosturl" aria-describedby="basic-addon3" value="140.113.179.8.xip.io">
+    	  <button class="btn btn-primary" type="button" onclick="submit()">Start</button><br>
+    	</div>
+  	</div>
+  	  <div class="row">
+  		  <div class="alert alert-primary" role="alert">
+  		  Current Latency: <a href="#" class="alert-link" id="latency">0ms</a>.
+  		</div>
+      </div>
+  		<div class="row">
+  		  <div class="alert alert-secondary" role="alert">
+  			  Total Latency: <a href="#" class="alert-link" id="Total">0ms</a>.
+  			</div>
+  		</div>
+  		<div class="row">
+  		  <div class="alert alert-success" role="alert">
+  		  Average Latency: <a href="#" class="alert-link" id="average">0ms</a>.
+  		</div>
+  		</div>
+  	  <div class="row">
+  		  <div class="alert alert-danger" role="alert">
+  			  Times of Post: <a href="#" class="alert-link" id="Number">0</a>.
+  			</div>
+  		</div>
+  		<div class="row">
+  		  <div class="alert alert-warning" role="alert">
+  			  Recognition Result: <a href="#" class="alert-link" id="result">waiting...</a>.
+  			</div>
+  		</div>
+  	</div>
+    <div align="center">
+    <div class="row">
+    <div class="col">
+      <figure class="figure">
+        <img id="headPic" src="" class="float-center mx-auto" width="" height="">
+        <figcaption class="figure-caption">Original</figcaption>
+      </figure>
+    </div>
+    <div class="col">
+      <figure class="figure">
+        <img id="facePic" src="" class="float-center mx-auto" width="" height="">
+        <figcaption class="figure-caption">Face detection</figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
+  </div>
+  </body>
+  <script type="text/javascript">
+      var num = 1;
+      var totalcost = 0;
+      var times=0;
+      function submit() {
+          var fpsrate=document.getElementById("fps").value;
+          var num_end=fpsrate*30+1
+          var objUrl = "../extract/"+fpsrate+"fps/test1_"+num+".jpg";
+      		$("#headPic").attr("src", objUrl);
+          //$("#facePic").attr("src", objUrl);
+      		$.ajax({
+      			type: "GET",
+      			url: "http://140.113.179.8:3000/facedetection",//请在此处填写clientServer.js 运行的IP地址
+      			data: { url: $("#hosturl").val(), name: num, fpsrate: fpsrate, },
+      			dataType: "text",
+      			success: function(R_data) {
+      				var str = R_data.split(':');
+      				times = times + 1;
+              num = num +1;
+      				totalcost = parseFloat(totalcost) + parseFloat(str[0]);
+      				$("#latency").text(parseFloat(str[0])+"ms");
+      				$("#result").text(str[2]);
+      				$("#Total").text(totalcost+"ms");
+      				$("#Number").text(times);
+      				$("#average").text(parseFloat(totalcost/times).toFixed(2)+"ms");
+              var facepicsrc="data:image/png;base64,"+str[1];
+              $("#facePic").attr("src", facepicsrc);
+              if (num<num_end){
+                submit();
+              }
+      				//setTimeout(1000,submit());
+      			}
+      		  });
+      }
+    </script>
+
+</html>
