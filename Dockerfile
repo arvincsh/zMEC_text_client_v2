@@ -15,5 +15,5 @@ WORKDIR /home/work/zMEC_face_client
 
 RUN npm install -y express && npm install -y body-parser && npm install -y formidable && npm install -y fs && npm install -y path && npm install -y ejs && npm install -y form-data && npm install -y url && npm install -y axios
 
-CMD [ "node", "/home/work/zMEC_face/app.js" ]
+CMD [ "node", "/home/work/zMEC_face_client/app.js" ]
 
