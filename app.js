@@ -5,7 +5,6 @@ var app=express();
 var bodyParser = require('./node_modules/body-parser');
 var formidable = require('./node_modules/formidable');
 const child_process = require('child_process');
-var cv = require('./node_modules/opencv');
 var FormData = require('form-data');
 var url = require('url');
 var axios = require('axios');
