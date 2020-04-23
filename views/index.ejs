@@ -90,8 +90,6 @@
       var num = 1;
       var totalcost = 0;
       var times=0;
-
-
       function submit() {
         var fpsrate=document.getElementById("fps").value;
         var num_end=fpsrate*30+1
@@ -103,27 +101,36 @@
       			type: "GET",
       			url: "http://"+clienturl+"/facedetection",//请在此处填写clientServer.js 运行的IP地址
             //url: "http://140.113.179.9.xip.io/facedetection",//请在此处填写clientServer.js 运行的IP地址
+            //url: "http://140.113.179.12:3000/facedetection",//请在此处填写clientServer.js 运行的IP地址
       			data: { url: $("#hosturl").val(), name: num, fpsrate: fpsrate, },
       			dataType: "text",
       			success: function(R_data) {
       				var str = R_data.split(':');
+              var detectflag=parseInt(str[2]);
       				times = times + 1;
-              num = num +1;
       				totalcost = parseFloat(totalcost) + parseFloat(str[0]);
       				$("#latency").text(parseFloat(str[0])+"ms");
-      				$("#result").text(str[2]);
       				$("#Total").text(totalcost+"ms");
       				$("#Number").text(times);
       				$("#average").text(parseFloat(totalcost/times).toFixed(2)+"ms");
               var facepicsrc="data:image/png;base64,"+str[1];
               $("#facePic").attr("src", facepicsrc);
-              if (num<num_end){
-                submit();
+              if (detectflag=1){
+                num = num +1;
+                $("#result").text("success");
+                if (num<num_end){
+                  submit();
+                }
+              }else{
+                $("#result").text("fail");
+                if (num<num_end){
+                  submit();
+                }
               }
+
       				//setTimeout(1000,submit());
       			}
       		  });
       }
     </script>
-
 </html>
