@@ -23,9 +23,9 @@ app.get('/facedetection', function (req, res) {
   var params = url.parse(req.url, true).query;
 		hostServer = params.url;
     picnum= params.name;
-    console.log(picnum);
+    //console.log(picnum);
     picfps= params.fpsrate;
-    console.log(picfps);
+//    console.log(picfps);
 
     var form = new FormData();
     		form.append('upload', fs.readFileSync(__dirname+"/public/extract/"+picfps+"fps/test1_"+picnum+".jpg"),"test1_"+picnum+".jpg");
@@ -38,10 +38,10 @@ app.get('/facedetection', function (req, res) {
     		}).then(function (response){
     			var end_T = new Date().getTime();
     			cost = end_T-start_T;
-          console.log(cost);
+          //console.log(cost);
     			res.write(cost+":");
     			res.write(response.data+":");
-          res.write("success");
+          res.write("1");
     			res.end();
           //console.log(response.data);
     		}).catch(function (error){
@@ -50,8 +50,9 @@ app.get('/facedetection', function (req, res) {
     			cost = end_T-start_T;
     			res.write(cost+":");
     			res.write("fail"+":");
-          res.write("fail"+":");
+          res.write("0");
     			res.end();
+          //console.log(response.data);
     		})
 })
 
