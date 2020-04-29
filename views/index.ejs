@@ -17,7 +17,7 @@
          <div class="input-group mb-1">
            <div class="input-group-prepend">
              <span class="input-group-text" id="basic-addon3" style="font-size:60px">Client Server URL https://</span>
-             <input type="text" class="form-control" id="clienturl" aria-describedby="basic-addon3" value="140.113.179.12" style="font-size:60px">
+             <input type="text" class="form-control" id="clienturl" aria-describedby="basic-addon3" value=".xip.io" style="font-size:60px">
            </div>
          </div>
        </div>
@@ -27,7 +27,7 @@
          <div class="input-group mb-1">
            <div class="input-group-prepend">
                <span class="input-group-text" id="basic-addon3" style="font-size:60px">Host Server URL https://</span>
-               <input type="text" class="form-control" id="hosturl" aria-describedby="basic-addon3" value="140.113.179.8.xip.io" style="font-size:60px">
+               <input type="text" class="form-control" id="hosturl" aria-describedby="basic-addon3" value=".xip.io" style="font-size:60px">
            </div>
          </div>
        </div>
@@ -146,9 +146,9 @@
         //$("#facePic").attr("src", objUrl);
         $.ajax({
           type: "GET",
-          //url: "http://"+clienturl+"/facedetection",//请在此处填写clientServer.js 运行的IP地址
+          url: "http://"+clienturl+"/facedetection",//请在此处填写clientServer.js 运行的IP地址
           //url: "http://140.113.179.9.xip.io/facedetection",//请在此处填写clientServer.js 运行的IP地址
-          url: "http://140.113.179.12:3000/facedetection",//请在此处填写clientServer.js 运行的IP地址
+          //url: "http://140.113.179.12:3000/facedetection",//请在此处填写clientServer.js 运行的IP地址
           data: { url: $("#hosturl").val(), name: num_result, fpsrate: fpsrate_result, destiation: $("#lb").val(),},
           dataType: "text",
           success: function(R_data) {
