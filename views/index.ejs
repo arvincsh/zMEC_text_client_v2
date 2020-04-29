@@ -10,127 +10,170 @@
 </head>
 
 <body>
-
-  <div class="jumbotron">
-  	<div class="container container-lg">
+  <div class="jumbotron" >
+  	<div class="container container-xl">
       <div class="row">
-        <div class="input-group-prepend">
-    		<span class="input-group-text">Please choose the fps rate first:</span>
-          <select id="fps">
-            <option value="1">1 fps</option>
-            <option value="3">3 fps</option>
-            <option value="5">5 fps</option>
-            <option value="10">10 fps</option>
-          </select>
-    	  </div>
-    </div>
-    <div class="row">
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon3">Client Server URL https://</span>
+        <div class="col">
+         <div class="input-group mb-1">
+           <div class="input-group-prepend">
+             <span class="input-group-text" id="basic-addon3" style="font-size:60px">Client Server URL https://</span>
+             <input type="text" class="form-control" id="clienturl" aria-describedby="basic-addon3" value="140.113.179.12" style="font-size:60px">
+           </div>
+         </div>
+       </div>
+     </div>
+     <div class="row">
+       <div class="col">
+         <div class="input-group mb-1">
+           <div class="input-group-prepend">
+               <span class="input-group-text" id="basic-addon3" style="font-size:60px">Host Server URL https://</span>
+               <input type="text" class="form-control" id="hosturl" aria-describedby="basic-addon3" value="140.113.179.8.xip.io" style="font-size:60px">
+           </div>
+         </div>
+       </div>
+     </div>
+      <div class="row"  >
+        <div class="col">
+          <div class="input-group mb-1">
+            <div class="input-group-prepend">
+  		        <span class="input-group-text" style="font-size:60px">Load Balance:</span>
+              <select id="lb" style="font-size:60px">
+                <option value="face">No</option>
+                <option value="NCTUface">Yes</option>
+              </select>
+            </div>
+          </div>
         </div>
-        <input type="text" class="form-control" id="clienturl" aria-describedby="basic-addon3" value="140.113.179.8.xip.io">
-      </div>
-    </div>
-  	<div class="row">
-    	<div class="input-group mb-3">
-    	  <div class="input-group-prepend">
-    		<span class="input-group-text" id="basic-addon3">Host Server URL https://</span>
-    	  </div>
-    	  <input type="text" class="form-control" id="hosturl" aria-describedby="basic-addon3" value="140.113.179.8.xip.io">
-    	  <button class="btn btn-primary" type="button" onclick="submit()">Start</button><br>
-    	</div>
-  	</div>
+	     </div>
+      <div class="row"  >
+        <div class="col">
+          <div class="input-group mb-1">
+            <div class="input-group-prepend">
+  		        <span class="input-group-text" style="font-size:60px">Choose the FPS rate:</span>
+              <select id="fps" style="font-size:60px" onchange="selectfps()">
 
-  	  <div class="row">
-  		  <div class="alert alert-primary" role="alert">
-  		  Current Latency: <a href="#" class="alert-link" id="latency">0ms</a>.
+                <option value="5">5 fps</option>
+                <option value="10">10 fps</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <button class="btn btn-primary" type="button" onclick="start()" style="font-size:60px">Start</button>
+        </div>
+	     </div>
+      <div class="row">
+        <div class="col-6">
+              <div class="alert alert-danger" role="alert" style="font-size:48px">
+                Imgages: <a href="#" class="alert-link" id="Number">0</a>/<font id="totalpost">150</font>
+              </div>
+        </div>
+        <div class="col-6">
+              <div class="alert alert-primary" role="alert" style="font-size:48px">
+          		      Current: <a href="#" class="alert-link" id="latency">0ms</a>
+        		  </div>
+        </div>
   		</div>
+  	  <div class="row">
+        <div class="col-6">
+              <div class="alert alert-secondary" role="alert" style="font-size:48px">
+        			  Total time: <a href="#" class="alert-link" id="Total">0ms</a>
+        			</div>
+        </div>
+        <div class="col-6">
+              <div class="alert alert-success" role="alert" style="font-size:48px">
+                Average: <a href="#" class="alert-link" id="average">0ms</a>
+              </div>
+        </div>
       </div>
-  		<div class="row">
-  		  <div class="alert alert-secondary" role="alert">
-  			  Total Latency: <a href="#" class="alert-link" id="Total">0ms</a>.
-  			</div>
-  		</div>
-  		<div class="row">
-  		  <div class="alert alert-success" role="alert">
-  		  Average Latency: <a href="#" class="alert-link" id="average">0ms</a>.
-  		</div>
-  		</div>
-  	  <div class="row">
-  		  <div class="alert alert-danger" role="alert">
-  			  Times of Post: <a href="#" class="alert-link" id="Number">0</a>.
-  			</div>
-  		</div>
-  		<div class="row">
-  		  <div class="alert alert-warning" role="alert">
-  			  Recognition Result: <a href="#" class="alert-link" id="result">waiting...</a>.
-  			</div>
-  		</div>
-  	</div>
-    <div align="center">
-    <div class="row">
-    <div class="col">
-      <figure class="figure">
-        <img id="headPic" src="" class="float-center mx-auto" width="" height="">
-        <figcaption class="figure-caption">Original</figcaption>
-      </figure>
+	   </div>
+
+      <div align="center">
+        <div class="row">
+          <div class="col">
+            <figure class="figure">
+              <img id="headPic" src="" class="float-center mx-auto" width="" height="">
+              <figcaption class="figure-caption">Original</figcaption>
+            </figure>
+          </div>
+          <div class="col">
+            <figure class="figure">
+              <img id="facePic" src="" class="float-center mx-auto" width="" height="">
+              <figcaption class="figure-caption">Face detection</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div class="col">
-      <figure class="figure">
-        <img id="facePic" src="" class="float-center mx-auto" width="" height="">
-        <figcaption class="figure-caption">Face detection</figcaption>
-      </figure>
-    </div>
-  </div>
-</div>
-  </div>
+
   </body>
-  <script type="text/javascript">
-      var num = 1;
-      var totalcost = 0;
-      var times=0;
-      function submit() {
-        var fpsrate=document.getElementById("fps").value;
-        var num_end=fpsrate*30+1
-        var clienturl=document.getElementById("clienturl").value;
-        var objUrl = "../extract/"+fpsrate+"fps/test1_"+num+".jpg";
-        $("#headPic").attr("src", objUrl);
-          //$("#facePic").attr("src", objUrl);
-      		$.ajax({
-      			type: "GET",
-      			url: "http://"+clienturl+"/facedetection",//请在此处填写clientServer.js 运行的IP地址
-            //url: "http://140.113.179.9.xip.io/facedetection",//请在此处填写clientServer.js 运行的IP地址
-            //url: "http://140.113.179.12:3000/facedetection",//请在此处填写clientServer.js 运行的IP地址
-      			data: { url: $("#hosturl").val(), name: num, fpsrate: fpsrate, },
-      			dataType: "text",
-      			success: function(R_data) {
-      				var str = R_data.split(':');
-              var detectflag=parseInt(str[2]);
-      				times = times + 1;
-      				totalcost = parseFloat(totalcost) + parseFloat(str[0]);
-      				$("#latency").text(parseFloat(str[0])+"ms");
-      				$("#Total").text(totalcost+"ms");
-      				$("#Number").text(times);
-      				$("#average").text(parseFloat(totalcost/times).toFixed(2)+"ms");
-              var facepicsrc="data:image/png;base64,"+str[1];
-              $("#facePic").attr("src", facepicsrc);
-              if (detectflag=1){
-                num = num +1;
-                $("#result").text("success");
-                if (num<num_end){
-                  submit();
-                }
-              }else{
-                $("#result").text("fail");
-                if (num<num_end){
-                  submit();
-                }
-              }
 
-      				//setTimeout(1000,submit());
-      			}
-      		  });
+  <script type="text/javascript">
+    var num=1;
+    var num_result=1;
+    var totalcost=0;
+    var times=0;
+
+    function selectfps(){
+      var fpsrate=document.getElementById("fps").value;
+      var totalpost_num=fpsrate*30;
+      $("#totalpost").text(totalpost_num);
+    }
+
+    function start(){
+      showimg();
+      submit();
+    }
+
+    function showimg(){
+      var fpsrate=document.getElementById("fps").value;
+      var num_end=fpsrate*30+1;
+      var freqency=1000/fpsrate;
+      var objUrl = "../extract/"+fpsrate+"fps/test1_"+num+".jpg";
+      $("#headPic").attr("src", objUrl);
+      if (num<num_end){
+        num=num+1;
+        setTimeout(showimg,freqency);
       }
+    }
+
+    function submit() {
+      var clienturl=document.getElementById("clienturl").value;
+      var fpsrate_result=document.getElementById("fps").value;
+      var num_end_result=fpsrate_result*30+1;
+      var freqency_result=1000/fpsrate_result;
+        //$("#facePic").attr("src", objUrl);
+        $.ajax({
+          type: "GET",
+          //url: "http://"+clienturl+"/facedetection",//请在此处填写clientServer.js 运行的IP地址
+          //url: "http://140.113.179.9.xip.io/facedetection",//请在此处填写clientServer.js 运行的IP地址
+          url: "http://140.113.179.12:3000/facedetection",//请在此处填写clientServer.js 运行的IP地址
+          data: { url: $("#hosturl").val(), name: num_result, fpsrate: fpsrate_result, destiation: $("#lb").val(),},
+          dataType: "text",
+          success: function(R_data) {
+            var str = R_data.split(':');
+            times = times + 1;
+            totalcost = parseFloat(totalcost) + parseFloat(str[0]);
+            $("#latency").text(parseFloat(str[0])+"ms");
+            $("#Total").text(totalcost+"ms");
+            $("#Number").text(times);
+            $("#average").text(parseFloat(totalcost/times).toFixed(2)+"ms");
+            var facepicsrc="data:image/png;base64,"+str[1];
+            $("#facePic").attr("src", facepicsrc);
+            num_result=num_result+1;
+            if (num_result < num_end_result){
+              if ( freqency_result< parseInt(str[0])){
+                  submit();
+              } else{
+                var freq=freqency_result-parseInt(str[0]);
+                setTimeout(submit,freq);
+              }
+            }
+            //setTimeout(1000,submit());
+          }
+          });
+        }
+
     </script>
 </html>
