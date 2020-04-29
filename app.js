@@ -20,20 +20,21 @@ app.get('/', function (req, res) {
   res.render('index');
 })
 app.get('/facedetection', function (req, res) {
+  //console.log("facedetection");
   var params = url.parse(req.url, true).query;
 		hostServer = params.url;
     picnum= params.name;
     //console.log(picnum);
     picfps= params.fpsrate;
-//    console.log(picfps);
+    picdes= params.destiation;
+    //console.log(picdes);
 
     var form = new FormData();
     		form.append('upload', fs.readFileSync(__dirname+"/public/extract/"+picfps+"fps/test1_"+picnum+".jpg"),"test1_"+picnum+".jpg");
     		var formHeaders = form.getHeaders();
-
     		var start_T = new Date().getTime();
         //console.log("http://"+hostServer+"/face");
-    		axios.post("http://"+hostServer+"/face", form, {
+    		axios.post("http://"+hostServer+"/"+picdes, form, {
     		  headers:formHeaders,
     		}).then(function (response){
     			var end_T = new Date().getTime();
