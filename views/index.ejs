@@ -11,169 +11,250 @@
 
 <body>
   <div class="jumbotron" >
-  	<div class="container container-xl">
-      <div class="row">
-        <div class="col">
-         <div class="input-group mb-1">
-           <div class="input-group-prepend">
-             <span class="input-group-text" id="basic-addon3" style="font-size:60px">Client Server URL https://</span>
-             <input type="text" class="form-control" id="clienturl" aria-describedby="basic-addon3" value=".xip.io" style="font-size:60px">
-           </div>
-         </div>
-       </div>
-     </div>
-     <div class="row">
+     <div class="row" align="center" >
+
        <div class="col">
-         <div class="input-group mb-1">
-           <div class="input-group-prepend">
+         <div class="row" align="center">
+
+           <div class="col-12">
+             <div class="input-group mb-1">
+               <span class="input-group-text" id="basic-addon3" style="font-size:60px">Client Server URL https://</span>
+               <input type="text" class="form-control" id="clienturl" aria-describedby="basic-addon3" value="" style="font-size:60px">
+             </div>
+             <div class="input-group mb-1">
                <span class="input-group-text" id="basic-addon3" style="font-size:60px">Host Server URL https://</span>
-               <input type="text" class="form-control" id="hosturl" aria-describedby="basic-addon3" value=".xip.io" style="font-size:60px">
+               <input type="text" class="form-control" id="hosturl" aria-describedby="basic-addon3" value="" style="font-size:60px">
+             </div>
+           </div>
+
+           <div class="col-5">
+             <div class="input-group mb-1">
+               <div class="input-group-prepend">
+     		        <span class="input-group-text" style="font-size:60px">Load Balance:</span>
+                 <select id="lb" style="font-size:60px">
+                   <option value="face">No</option>
+                   <option value="NCTUface">Yes</option>
+                 </select>
+               </div>
+             </div>
+           </div>
+
+           <div class="col-5">
+             <div class="input-group mb-1">
+               <div class="input-group-prepend">
+     		        <span class="input-group-text" style="font-size:60px">The FPS rate:</span>
+                 <select id="fps" style="font-size:60px" onchange="selectfps()">
+                   <option value="5">5</option>
+                   <option value="8">8</option>
+                   <option value="10">10</option>
+                   <option value="12">12</option>
+                   <option value="15">15</option>
+                 </select>
+               </div>
+             </div>
+           </div>
+
+           <div class="col-2">
+             <button class="btn btn-primary" type="button" onclick="start();" style="font-size:60px">Start</button>
+           </div>
+
+         </div>
+       </div>
+
+       <div class="col">
+         <div class="row" align="center">
+           <div class="col-12">
+               <span style="font-size:60px" align="center">Face-detection Cost:</span>
+           </div>
+         </div>
+         <div class="row" align="center">
+           <div class="col-6">
+             <div class="alert alert-danger" role="alert" style="font-size:48px">
+               Imgages: <a href="#" class="alert-link" id="cImages">0</a>/<font id="totalpost1">150</font>
+             </div>
+           </div>
+           <div class="col-6">
+             <div class="alert alert-primary" role="alert" style="font-size:48px">
+                   Current: <a href="#" class="alert-link" id="cCurrent">0ms</a>
+             </div>
+           </div>
+         </div>
+         <div class="row" align="center">
+           <div class="col-6">
+             <div class="alert alert-secondary" role="alert" style="font-size:48px">
+               Total: <a href="#" class="alert-link" id="cTotal">0ms</a>
+             </div>
+           </div>
+           <div class="col-6">
+             <div class="alert alert-success" role="alert" style="font-size:48px">
+               Average: <a href="#" class="alert-link" id="cAverage">0ms</a>
+             </div>
            </div>
          </div>
        </div>
+       </div>
      </div>
-      <div class="row"  >
-        <div class="col">
-          <div class="input-group mb-1">
-            <div class="input-group-prepend">
-  		        <span class="input-group-text" style="font-size:60px">Load Balance:</span>
-              <select id="lb" style="font-size:60px">
-                <option value="face">No</option>
-                <option value="NCTUface">Yes</option>
-              </select>
-            </div>
-          </div>
-        </div>
-	     </div>
-      <div class="row"  >
-        <div class="col">
-          <div class="input-group mb-1">
-            <div class="input-group-prepend">
-  		        <span class="input-group-text" style="font-size:60px">Choose the FPS rate:</span>
-              <select id="fps" style="font-size:60px" onchange="selectfps()">
+     <br>
 
-                <option value="5">5 fps</option>
-                <option value="10">10 fps</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <button class="btn btn-primary" type="button" onclick="start()" style="font-size:60px">Start</button>
-        </div>
-	     </div>
-      <div class="row">
-        <div class="col-6">
-              <div class="alert alert-danger" role="alert" style="font-size:48px">
-                Imgages: <a href="#" class="alert-link" id="Number">0</a>/<font id="totalpost">150</font>
-              </div>
-        </div>
-        <div class="col-6">
-              <div class="alert alert-primary" role="alert" style="font-size:48px">
-          		      Current: <a href="#" class="alert-link" id="latency">0ms</a>
-        		  </div>
-        </div>
-  		</div>
-  	  <div class="row">
-        <div class="col-6">
-              <div class="alert alert-secondary" role="alert" style="font-size:48px">
-        			  Total time: <a href="#" class="alert-link" id="Total">0ms</a>
-        			</div>
-        </div>
-        <div class="col-6">
-              <div class="alert alert-success" role="alert" style="font-size:48px">
-                Average: <a href="#" class="alert-link" id="average">0ms</a>
-              </div>
-        </div>
-      </div>
-	   </div>
-
-      <div align="center">
-        <div class="row">
+        <div class="row" align="center">
           <div class="col">
             <figure class="figure">
               <img id="headPic" src="" class="float-center mx-auto" width="" height="">
-              <figcaption class="figure-caption">Original</figcaption>
+              <figcaption class="figure-caption" style="font-size:60px">Original</figcaption>
             </figure>
+            <div class="row" align="center">
+              <div class="col-6">
+                <div class="alert alert-danger" role="alert" style="font-size:48px">
+                  Imgages: <a href="#" class="alert-link" id="iImages">0</a>/<font id="totalpost2">150</font>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="alert alert-primary" role="alert" style="font-size:48px">
+            		      Current: <a href="#" class="alert-link" id="iCurrent">0ms</a>
+          		  </div>
+              </div>
+            </div>
+            <div class="row" align="center">
+              <div class="col-6">
+                <div class="alert alert-secondary" role="alert" style="font-size:48px">
+          			  Total: <a href="#" class="alert-link" id="iTotal">0ms</a>
+          			</div>
+              </div>
+              <div class="col-6">
+                <div class="alert alert-success" role="alert" style="font-size:48px">
+                  Average: <a href="#" class="alert-link" id="iAverage">0ms</a>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="col">
             <figure class="figure">
               <img id="facePic" src="" class="float-center mx-auto" width="" height="">
-              <figcaption class="figure-caption">Face detection</figcaption>
+              <figcaption class="figure-caption" style="font-size:60px">Face detection</figcaption>
             </figure>
+            <div class="row" align="center">
+              <div class="col-6">
+                <div class="alert alert-danger" role="alert" style="font-size:48px">
+                  Imgages: <a href="#" class="alert-link" id="fImages">0</a>/<font id="totalpost3">150</font>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="alert alert-primary" role="alert" style="font-size:48px">
+            		      Current: <a href="#" class="alert-link" id="fCurrent">0ms</a>
+          		  </div>
+              </div>
+            </div>
+            <div class="row" align="center">
+              <div class="col-6">
+                <div class="alert alert-secondary" role="alert" style="font-size:48px">
+          			  Total time: <a href="#" class="alert-link" id="fTotal">0ms</a>
+          			</div>
+              </div>
+              <div class="col-6">
+                <div class="alert alert-success" role="alert" style="font-size:48px">
+                  Average: <a href="#" class="alert-link" id="fAverage">0ms</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
     </div>
 
   </body>
 
   <script type="text/javascript">
     var num=1;
-    var num_result=1;
+    var num_face=1;
     var totalcost=0;
-    var times=0;
+    var totalcost_face=0;
+    var totalcost_comp=0;
+
+
+
+
 
     function selectfps(){
       var fpsrate=document.getElementById("fps").value;
       var totalpost_num=fpsrate*30;
-      $("#totalpost").text(totalpost_num);
+      $("#totalpost1").text(totalpost_num);
+      $("#totalpost2").text(totalpost_num);
+      $("#totalpost3").text(totalpost_num);
     }
+
 
     function start(){
-      showimg();
-      submit();
+      var stamp = Date.now();
+      var stamp_face=stamp;
+      showimg(stamp);
+      submit(stamp_face);
     }
 
-    function showimg(){
+    function showimg(stamp){
+      $("#iImages").text(num);
       var fpsrate=document.getElementById("fps").value;
-      var num_end=fpsrate*30+1;
       var freqency=1000/fpsrate;
+      var num_end=fpsrate*30;
       var objUrl = "../extract/"+fpsrate+"fps/test1_"+num+".jpg";
       $("#headPic").attr("src", objUrl);
+      var show = Date.now();
+      var delay= show-stamp;
+          stamp=show;
+      $("#iCurrent").text(delay+"ms");
+          totalcost=totalcost+delay;
+      $("#iTotal").text(totalcost+"ms");
+      var avgcost=(totalcost/num).toFixed(1);
+      $("#iAverage").text(avgcost+"ms");
+
       if (num<num_end){
         num=num+1;
-        setTimeout(showimg,freqency);
+        setTimeout(function (){showimg(stamp)},freqency);
       }
     }
 
-    function submit() {
+    function submit(stamp_face) {
       var clienturl=document.getElementById("clienturl").value;
-      var fpsrate_result=document.getElementById("fps").value;
-      var num_end_result=fpsrate_result*30+1;
-      var freqency_result=1000/fpsrate_result;
-        //$("#facePic").attr("src", objUrl);
+      var fpsrate_face=document.getElementById("fps").value;
+      var num_end_face=fpsrate_face*30+1;
+      var freqency_face=1000/fpsrate_face;
+      //alert(clienturl);
         $.ajax({
           type: "GET",
           url: "http://"+clienturl+"/facedetection",//请在此处填写clientServer.js 运行的IP地址
           //url: "http://140.113.179.9.xip.io/facedetection",//请在此处填写clientServer.js 运行的IP地址
           //url: "http://140.113.179.12:3000/facedetection",//请在此处填写clientServer.js 运行的IP地址
-          data: { url: $("#hosturl").val(), name: num_result, fpsrate: fpsrate_result, destiation: $("#lb").val(),},
+          data: { url: $("#hosturl").val(), name: num_face, fpsrate: fpsrate_face, destiation: $("#lb").val(),},
           dataType: "text",
           success: function(R_data) {
             var str = R_data.split(':');
-            times = times + 1;
-            totalcost = parseFloat(totalcost) + parseFloat(str[0]);
-            $("#latency").text(parseFloat(str[0])+"ms");
-            $("#Total").text(totalcost+"ms");
-            $("#Number").text(times);
-            $("#average").text(parseFloat(totalcost/times).toFixed(2)+"ms");
+            totalcost_comp = parseFloat(totalcost_comp) + parseFloat(str[0]);
+            var computation_cost = parseFloat(str[0]);
+            $("#cCurrent").text(computation_cost+"ms");
+            $("#cTotal").text(totalcost_comp+"ms");
+            $("#cImages").text(num_face);
+            $("#fImages").text(num_face);
+            $("#cAverage").text(parseFloat(totalcost_comp/num_face).toFixed(2)+"ms");
             var facepicsrc="data:image/png;base64,"+str[1];
             $("#facePic").attr("src", facepicsrc);
-            num_result=num_result+1;
-            if (num_result < num_end_result){
-              if ( freqency_result< parseInt(str[0])){
-                  submit();
+            var show_face = Date.now();
+            var delay_face= show_face-stamp_face;
+                stamp_face=show_face;
+            num_face = num_face + 1;
+            $("#fCurrent").text(delay_face+"ms");
+                totalcost_face=totalcost_face+delay_face;
+            $("#fTotal").text(totalcost_face+"ms");
+            var avgcost_face=(totalcost_face/num_face).toFixed(1);
+            $("#fAverage").text(avgcost_face+"ms");
+            if (num_face < num_end_face){
+              if ( freqency_face<computation_cost){
+                  submit(stamp_face);
               } else{
-                var freq=freqency_result-parseInt(str[0]);
-                setTimeout(submit,freq);
+                var freq=(freqency_face-computation_cost)*0.8;
+                setTimeout(function(){submit(stamp_face)},freq);
               }
             }
             //setTimeout(1000,submit());
           }
           });
         }
-
     </script>
 </html>
