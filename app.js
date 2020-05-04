@@ -23,6 +23,7 @@ app.get('/facedetection', function (req, res) {
   //console.log("facedetection");
   var params = url.parse(req.url, true).query;
 		hostServer = params.url;
+  //  console.log(hostServer);
     picnum= params.name;
     //console.log(picnum);
     picfps= params.fpsrate;
@@ -33,25 +34,25 @@ app.get('/facedetection', function (req, res) {
     		form.append('upload', fs.readFileSync(__dirname+"/public/extract/"+picfps+"fps/test1_"+picnum+".jpg"),"test1_"+picnum+".jpg");
     		var formHeaders = form.getHeaders();
     		var start_T = new Date().getTime();
-        //console.log("http://"+hostServer+"/face");
-    		axios.post("http://"+hostServer+"/"+picdes, form, {
+      //  console.log("http://"+hostServer+"/"+picdes);
+    		//axios.post("http://"+hostServer+"/"+picdes, form, {
+        axios.post("http://"+hostServer+"/"+picdes, form, {
     		  headers:formHeaders,
     		}).then(function (response){
+          //console.log("success");
     			var end_T = new Date().getTime();
     			cost = end_T-start_T;
           //console.log(cost);
     			res.write(cost+":");
-    			res.write(response.data+":");
-          res.write("1");
+    			res.write(response.data);
     			res.end();
-          //console.log(response.data);
+      //    console.log(response.data);
     		}).catch(function (error){
-          console.log("err");
+          //console.log("fail");
     			var end_T = new Date().getTime();
     			cost = end_T-start_T;
     			res.write(cost+":");
-    			res.write("fail"+":");
-          res.write("0");
+    			res.write("fail");
     			res.end();
           //console.log(response.data);
     		})
