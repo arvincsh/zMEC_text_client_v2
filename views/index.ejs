@@ -127,17 +127,12 @@ function geData(Times, CLatency) {
     };
 }
 
-function getRandomNumber(max,min) {
-	let x = Math.floor(Math.random() * (max - min + 1)) + min;
-	console.log(x);
-	return x;
-}
+
 
 function submit() {
     var clienturl=document.getElementById("clienturl").value;
     var lb=document.getElementById("lb").value;
-
-		var num = getRandomNumber(99999,99899);
+    var num = Math.floor(Math.random() *100) + 99900;
 		var objUrl = "../yzm/"+num+".png";
 		$("#headPic").attr("src", objUrl);
 
