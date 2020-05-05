@@ -12,7 +12,6 @@
 <body>
 
 <div class="jumbotron">
-<img id="logo" src="../nctu.gif" class="rounded float-right mx-auto" width="200">
   <h1 class="display-4">Hello, world!</h1>
   <p class="lead">This is a cloud testing platform for ZCOM-NCTU Project. </p>
   <hr class="my-4">
@@ -76,12 +75,6 @@
    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 			<div id="main" class="float-left" style="width: 600px;height:400px;"></div>
 		</div>
-
-
-		<figure class="figure">
-			<img id="headPic" src="" class="figure-img img-fluid rounded float-center mx-auto" width="160" height="50">
-		  <figcaption class="figure-caption">Programming the future</figcaption>
-		</figure>
 		<div class="col">
 			<div id="chart2" class="float-right" style="width: 600px;height:400px;"></div>
 		</div>
@@ -133,8 +126,6 @@ function submit() {
     var clienturl=document.getElementById("clienturl").value;
     var lb=document.getElementById("lb").value;
     var num = Math.floor(Math.random() *100+1) + 99900;
-		var objUrl = "../yzm/"+num+".jpg";
-		$("#headPic").attr("src", objUrl);
 
 		$.ajax({
 			type: "GET",
