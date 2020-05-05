@@ -163,7 +163,8 @@ function submit() {
 
 				option2.series[0].data[0].value = parseFloat(str[0]);
 				myChart2.setOption(option2, true);
-				submit();
+				//submit();
+				setTimeout(function (){submit();},100);
 			}
 		  });
 
