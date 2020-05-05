@@ -8,13 +8,15 @@ const child_process = require('child_process');
 var FormData = require('form-data');
 var url = require('url');
 var axios = require('axios');
-var pic = 2;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 app.set('view engine', 'ejs');
+
+
+
 
 app.get('/text', function (req, res) {
   res.render('index');
@@ -34,7 +36,7 @@ app.get('/textdetection', function (req, res) {
  //console.log(picnum);
  //console.log(__dirname+"/public/yzm/"+picnum+".png");
   var form = new FormData();
-  form.append('upload', fs.readFileSync(__dirname+"/public/yzm/"+picnum+".png"), "yzm/"+picnum+".png");
+  form.append('upload', fs.readFileSync(__dirname+"/public/yzm/"+picnum+".jpg"), "yzm/"+picnum+".jpg");
   var formHeaders = form.getHeaders();
   var start_T = new Date().getTime();
   axios.post("http://"+hostServer+"/"+dest, form, {
