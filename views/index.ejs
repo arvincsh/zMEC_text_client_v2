@@ -132,8 +132,8 @@ function geData(Times, CLatency) {
 function submit() {
     var clienturl=document.getElementById("clienturl").value;
     var lb=document.getElementById("lb").value;
-    var num = Math.floor(Math.random() *100) + 99900;
-		var objUrl = "../yzm/"+num+".png";
+    var num = Math.floor(Math.random() *100+1) + 99900;
+		var objUrl = "../yzm/"+num+".jpg";
 		$("#headPic").attr("src", objUrl);
 
 		$.ajax({
@@ -163,8 +163,7 @@ function submit() {
 
 				option2.series[0].data[0].value = parseFloat(str[0]);
 				myChart2.setOption(option2, true);
-				//submit();
-				setTimeout(function (){submit();},100);
+				submit();
 			}
 		  });
 
