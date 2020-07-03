@@ -138,10 +138,9 @@ function submit() {
     var clienturl=document.getElementById("clienturl").value;
     var lb=document.getElementById("lb").value;
     var num = Math.floor(Math.random() *100+1) + 99900;
-		var objUrl = "../yzm/"+num+".jpg";
-		$("#headPic").attr("src", objUrl);
-
-		$.ajax({
+    var objUrl = "../yzm/"+num+".jpg";
+    $("#headPic").attr("src", objUrl);
+	$.ajax({
 			type: "GET",
 			url: "http://"+clienturl+"/textdetection",//请在此处填写clientServer.js 运行的IP地址
 			data: { url: $("#hosturl").val(), name: num, destiation:lb  },
