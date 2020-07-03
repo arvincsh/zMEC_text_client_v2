@@ -12,8 +12,7 @@
 <body>
 
 <div class="jumbotron">
-  <h1 class="display-4">Hello, world!</h1>
-  <p class="lead">This is a cloud testing platform for ZCOM-NCTU Project. </p>
+  <h1 class="display-4">Z-Com, Inc.</h1>
   <hr class="my-4">
 	<div class="container container-lg">
 	<div class="row">
@@ -58,12 +57,17 @@
 	  <div class="row">
 		<div class="col">
 		  <div class="alert alert-danger" role="alert">
-			  Times of Post: <a href="#" class="alert-link" id="Number">0</a>.
+			  Times of Success: <a href="#" class="alert-link" id="Number">0</a>.
 			</div>
 		</div>
-		<div class="col">
+    <div class="col">
 		  <div class="alert alert-warning" role="alert">
 			  Recognition Result: <a href="#" class="alert-link" id="result">waiting...</a>.
+			</div>
+		</div>
+    <div class="col">
+		  <div class="alert alert-info" role="alert">
+			  Times of Error: <a href="#" class="alert-link" id="Error">0</a>.
 			</div>
 		</div>
 	  </div>
@@ -75,6 +79,12 @@
    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 			<div id="main" class="float-left" style="width: 600px;height:400px;"></div>
 		</div>
+
+
+		<figure class="figure">
+			<img id="headPic" src="" class="figure-img img-fluid rounded float-center mx-auto" width="160" height="50">
+		  <figcaption class="figure-caption">Programming the future</figcaption>
+		</figure>
 		<div class="col">
 			<div id="chart2" class="float-right" style="width: 600px;height:400px;"></div>
 		</div>
@@ -88,6 +98,8 @@ var myChart2 = echarts.init(document.getElementById('chart2'));
 var L_data = [];
 var times = 0;
 var totalcost = 0;
+var error_times = 0;
+var flag_stop=0;
 
 option2 = {
     tooltip: {
@@ -126,6 +138,8 @@ function submit() {
     var clienturl=document.getElementById("clienturl").value;
     var lb=document.getElementById("lb").value;
     var num = Math.floor(Math.random() *100+1) + 99900;
+		var objUrl = "../yzm/"+num+".jpg";
+		$("#headPic").attr("src", objUrl);
 
 		$.ajax({
 			type: "GET",
@@ -134,27 +148,44 @@ function submit() {
 			dataType: "text",
 			success: function(R_data) {
 				var str = R_data.split(':');
-				times = times + 1;
-				totalcost = parseFloat(totalcost) + parseFloat(str[0]);
 
-				$("#latency").text(parseFloat(str[0])+"ms");
-				$("#result").text(str[1]);
-				$("#Total").text(totalcost+"ms");
-				$("#Number").text(times);
-				$("#average").text(parseFloat(totalcost/times).toFixed(1)+"ms");
+        if (str[1]=="fail") {
+          error_times=error_times+1;
+          times=times;
+          totalcost = parseFloat(totalcost);
+          $("#latency").text("null");
+          $("#result").text(str[1]);
+          $("#Total").text(totalcost+"ms");
+          $("#Number").text(times);
+          $("#average").text(parseFloat(totalcost/times).toFixed(1)+"ms");
+          $("#Error").text(error_times);
+        }
+        else {
+            times = times + 1;
+            error_times=error_times;
+            totalcost = parseFloat(totalcost) + parseFloat(str[0]);
+            $("#latency").text(parseFloat(str[0])+"ms");
+    				$("#result").text(str[1]);
+    				$("#Total").text(totalcost+"ms");
+    				$("#Number").text(times);
+    				$("#average").text(parseFloat(totalcost/times).toFixed(1)+"ms");
+            $("#Error").text(error_times);
+            L_data.push(geData(times, parseFloat(str[0])));
+    				myChart.setOption({
+    					series: [{
+    						data: L_data
+    					}]
+    				});
+    				option2.series[0].data[0].value = parseFloat(str[0]);
+    				myChart2.setOption(option2, true);
+        }
 
-				//L_data.shift();
-				L_data.push(geData(times, parseFloat(str[0])));
+        flag_stop=times+error_times;
+        if (flag_stop <200){
+        submit();
+        }
 
-				myChart.setOption({
-					series: [{
-						data: L_data
-					}]
-				});
 
-				option2.series[0].data[0].value = parseFloat(str[0]);
-				myChart2.setOption(option2, true);
-				submit();
 			}
 		  });
 
