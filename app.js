@@ -36,7 +36,7 @@ app.get('/textdetection', function (req, res) {
  //console.log(picnum);
  //console.log(__dirname+"/public/yzm/"+picnum+".png");
   var form = new FormData();
-  form.append('upload', fs.readFileSync(__dirname+"/public/yzm/"+picnum+".jpg"), "yzm/"+picnum+".jpg");
+  form.append('upload', fs.readFileSync(__dirname+"/public/yzm/"+picnum+".jpg"), picnum+".jpg");
   var formHeaders = form.getHeaders();
   var start_T = new Date().getTime();
   axios.post("http://"+hostServer+"/"+dest, form, {
